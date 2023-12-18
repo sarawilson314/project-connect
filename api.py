@@ -1,30 +1,43 @@
 from flask import Flask, jsonify
 from flask_cors import CORS
+from sqlalchemy import create_engine, text
+from sqlalchemy.engine import URL
 
-# Create an instance of the Flask class
 app = Flask(__name__)
-
-# Enable CORS (Cross-Origin Resource Sharing)
 CORS(app)
 
-# Define a route for the root URL ("/")
-# When you visit the root URL the function index() will be executed.
+# Establish database connection (outside of the route function)
+connection_url = URL.create(
+    "mssql+pyodbc",
+    host="localhost",
+    database="Project_Connect",
+    query={"driver": "ODBC Driver 17 for SQL Server",
+           "Trusted_Connection": "yes"},
+)
+
+engine = create_engine(connection_url, fast_executemany=True)
+
 @app.route('/py-api')
 def index():
+    try:
+        # Query the database
+        with engine.connect() as connection:
+            result = connection.execute(text("SELECT * FROM API_Outputs"))
+            query_results = [dict(row) for row in result]  # Convert rows to dictionaries
 
-    # Define a dictionary
-    data = ["item1", "item2", "item3"]
+        # Create a response dictionary
+        response = {
+            "message": "Python is the best!",
+            "data": query_results  # Include query results in the response
+        }
 
-    # Create a response dictionary
-    response = {
-        "message": "Python is the best!",
-        "data": data
-    }
+    except Exception as e:
+        response = {
+            "message": "An error occurred",
+            "error": str(e)
+        }
 
-    # Use jsonify to return a JSON response
     return jsonify(response)
 
-# Check if the executed file is the main program and run the app.
-# If you import this script as a module in another script, the app will not run.
 if __name__ == '__main__':
     app.run(debug=True)
