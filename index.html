@@ -7,48 +7,48 @@
 -->   
 
 <body style="padding: 0 15%; display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh;">
-    <table>
-        <tr>
-            <td width="20%" style="text-align: center;">
+    <table style="table-layout: fixed; width: 100%;">
+        <tr height = "20px">
+            <h1>Project Connect</h1>
+        </tr>
+        <tr height = "200px">
+            <td style="width: 33.33%; text-align: center;">
                 <img src="images/r.png" height="80px">
                 <br><br>
-                <button id="r-button" style = "width: 150px; height: 30px;">R is the best</button>
+                <button id="r-button" style = "width: 150px; height: 30px;">R is the best!</button>
                 <br><br>
-                <p id="r-output">R output will be displayed here.</p>
+                <p id="r-output-text">Text output from R's API</p>
             </td>
-            <td width="20%" style="text-align: center;">
+            <td style="width: 33.33%; text-align: center;">
                 <img src="images/python.png" height="80px">
                 <br><br>
-                <button id="py-button" style = "width: 150px; height: 30px;">Python is the best</button>
+                <button id="py-button" style = "width: 150px; height: 30px;">Python is the best!</button>
+                <br><br>
+                <p id="py-output-text">Text output from Python's API</p>
             </td>
-            <td width="20%" style="text-align: center;">
+            <td style="width: 33.33%; text-align: center;">
                 <img src="images/javascript.png" height="80px">
                 <br><br>
-                <button id="js-button" style = "width: 150px; height: 30px;">JavaScript is the best</button>
+                <button id="js-button" style = "width: 150px; height: 30px;">JavaScript is the best!</button>
+                <br><br>
+                <p id="js-output-text">Text output from JavaScript's API</p>
             </td>
         </tr>
-        <tr height = "100px"></tr>
-        <tr>
-            <td colspan="3" style="text-align: center;">
+        <tr height = "20px"></tr>
+        <tr height = "300px">
+            <td id = "r-output-table" style = "width: 33.33%; text-align: center;">
                 <!-- Display database table here -->
-                <p>Display database table here.</p>
-
-                <table id="data-table">
-                    <thead>
-                        <tr>
-                            <th>API Outputs</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!-- Data rows will be inserted here -->
-                    </tbody>
-                </table>
-                
-
-                <button style = "width: 150px; height: 30px;">Start over</button>
+                <p>Data output from R's API</p>
+            </td>
+            <td id = "py-output-table" style = "width: 33.33%; text-align: center;">
+                <!-- Display database table here -->
+                <p>Data output from Python's API</p>
+            </td>
+            <td id = "js-output-table" style = "width: 33.33%; text-align: center;">
+                <!-- Display database table here -->
+                <p>Data output from JavaScript's API</p>
             </td>
         </tr>
-
     </table>
 
     <script>
@@ -81,9 +81,9 @@
         }
     
         // Add event listeners to each button
-        document.getElementById('r-button').addEventListener('click', () => handleButtonClick('http://localhost:8000/r-api', 'r-output', 'data-table'));        
-        document.getElementById('py-button').addEventListener('click', () => handleButtonClick('http://localhost:8000/python-api-endpoint', 'some-python-output-element-id'));
-        document.getElementById('js-button').addEventListener('click', () => handleButtonClick('http://localhost:8000/javascript-api-endpoint', 'some-javascript-output-element-id'));
+        document.getElementById('r-button').addEventListener('click', () => handleButtonClick('http://localhost:8000/r-api', 'r-output-text', 'r-output-table'));        
+        document.getElementById('py-button').addEventListener('click', () => handleButtonClick('http://127.0.0.1:5000/py-api', 'py-output-text', 'py-output-table'));
+        document.getElementById('js-button').addEventListener('click', () => handleButtonClick('http://localhost:8000/javascript-api-endpoint', 'js-output-text', 'js-output-table'));
     </script>
 
 </body>
