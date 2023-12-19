@@ -3,7 +3,7 @@ library(odbc)
 library(DBI)
 
 # GET data from database table
-#* @get /api-r
+#* @get /output-r
 function() {
   
   # Connect to the database
@@ -19,12 +19,12 @@ function() {
   dbDisconnect(con)
   
   # Create output for the API to return
-  list(data = data)
+  (list(data = data)
        
 }
 
 # POST data to database table
-#* @post /insert-record-r
+#* @post /input-r
 function() {
   # Connect to the database
   con <- dbConnect(odbc::odbc(),

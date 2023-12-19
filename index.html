@@ -54,7 +54,7 @@
                 .then(response => response.json())
                 .then(data => {
                     // Call displayData to refresh the table after new row is added
-                    displayData('http://localhost:8000/api-r', outputElementData);
+                    displayData(apiEndpoint, outputElementData);
                 })
                 .catch(error => {
                     cosole.error('Error', error);
@@ -63,29 +63,37 @@
 
         // Function to automatically fetch and display data.data
         function displayData(apiEndpoint, outputElementData) {
-            fetch(apiEndpoint)
+            fetch(apiEndpoint, { method: 'GET' })
                 .then(response => response.json())
                 .then(data => {
-                    if(Array.isArray(data.data)){
-                        const formattedData = data.data.join('<br>');
+                    if(Array.isArray(data.data)) {
+                        // Map each object to a string representation
+                        const formattedData = data.data.map(row => {
+                        // Extract values from each object and join them
+                        return Object.values(row).join(', '); // Joins all values in the object with a comma
+                        }).join('<br>'); // Joins all rows with a line break
+
+                        // Update the HTML content of the specified element
                         document.getElementById(outputElementData).innerHTML = formattedData;
                     } else {
+                        // If data.data is not an array, display it directly
                         document.getElementById(outputElementData).innerText = data.data;
                     }
                 })
                 .catch(error => {
-                    console.error('Error:', error);
+                console.error('Error:', error);
+                document.getElementById(outputElementData).innerText = 'Error loading data';
                 });
-        }
+        }   
     
         // Event listeners for button clicks
-        document.getElementById('button-r').addEventListener('click', () => handleButtonClick('http://localhost:8000/api-r', 'output-table-r'));        
-        document.getElementById('button-py').addEventListener('click', () => handleButtonClick('http://127.0.0.1:5000/api-py', 'output-table-py'));
+        document.getElementById('button-r').addEventListener('click', () => handleButtonClick('http://localhost:8000/input-r', 'output-table-r'));        
+        document.getElementById('button-py').addEventListener('click', () => handleButtonClick('http://127.0.0.1:5000/input-py', 'output-table-py'));
         document.getElementById('button-js').addEventListener('click', () => handleButtonClick('http://localhost:8000/javascript-api-endpoint', 'output-table-js'));
         
         // Display database table data from each API in real-time
-        displayData('http://localhost:8000/api-r', 'output-table-r');
-        displayData('http://127.0.0.1:5000/api-py', 'output-table-py');
+        displayData('http://localhost:8000/output-r', 'output-table-r');
+        displayData('http://127.0.0.1:5000/output-py', 'output-table-py');
         displayData('http://localhost:8000/javascript-api-endpoint', 'output-table-js');
 
     </script>
