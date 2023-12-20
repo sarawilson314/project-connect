@@ -44,7 +44,7 @@ document.getElementById('button-insert-records-r').addEventListener('click', () 
     handleButtonClick('http://localhost:8000/api-r', ['output-r', 'output-py']);
 });
 
-document.getElementById('clear-button-r').addEventListener('click', () => {
+document.getElementById('button-delete-records-r').addEventListener('click', () => {
     handleButtonClick('http://localhost:8000/delete-r', ['output-r', 'output-py']);
 })
 
