@@ -40,18 +40,18 @@ function displayData(apiEndpoint, outputElementData) {
 }
 
 // Event listeners for button clicks
-document.getElementById('button-r').addEventListener('click', () => {
-    handleButtonClick('http://localhost:8000/api-r', ['output-table-r', 'output-table-py']);
+document.getElementById('button-insert-records-r').addEventListener('click', () => {
+    handleButtonClick('http://localhost:8000/api-r', ['output-r', 'output-py']);
 });
 
 document.getElementById('clear-button-r').addEventListener('click', () => {
-    handleButtonClick('http://localhost:8000/delete-r', ['output-table-r', 'output-table-py']);
+    handleButtonClick('http://localhost:8000/delete-r', ['output-r', 'output-py']);
 })
 
-document.getElementById('button-py').addEventListener('click', () => {
-    handleButtonClick('http://127.0.0.1:5000/api-py', ['output-table-r', 'output-table-py']);
+document.getElementById('button-insert-records-py').addEventListener('click', () => {
+    handleButtonClick('http://127.0.0.1:5000/api-py', ['output-r', 'output-py']);
 });
 
 // Display database table data from each API in real-time
-displayData('http://localhost:8000/api-r', 'output-table-r');
-displayData('http://127.0.0.1:5000/api-py', 'output-table-py');
+displayData('http://localhost:8000/api-r', 'output-r');
+displayData('http://127.0.0.1:5000/api-py', 'output-py');
