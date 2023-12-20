@@ -49,5 +49,23 @@ def get_last_five_records():
         print(e)
         return jsonify({"message": "An error occurred", "error": str(e)}), 500
 
+@app.route('/delete-api-py', methods=['DELETE'])
+def delete_records():
+    try:
+        with engine.connect() as connection:
+            connection.execute(text("DELETE FROM API_Outputs"))
+            connection.commit()  # Commit the transaction
+
+        response = {
+            "message": "All records deleted successfully!"
+        }
+        return jsonify(response)
+    except Exception as e:
+        print(e)
+        return jsonify({"message": "An error occurred while deleting records", "error": str(e)}), 500
+
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+

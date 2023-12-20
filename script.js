@@ -1,7 +1,7 @@
 
 // Function to handle button clicks for API message
-function handleButtonClick(apiEndpoint, outputElements) {
-    fetch(apiEndpoint, { method: 'POST' })
+function handleButtonClick(apiEndpoint, outputElements, method = 'POST') {
+    fetch(apiEndpoint, { method: method })
         .then(response => response.json())
         .then(data => {
             // Refresh both tables to keep them synchronized
@@ -17,25 +17,26 @@ function handleButtonClick(apiEndpoint, outputElements) {
 // Function to automatically fetch and display data.data
 function displayData(apiEndpoint, outputElementData) {
     fetch(apiEndpoint, { method: 'GET' })
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('No data available');
+            }
+            return response.json();
+        })
         .then(data => {
-            // Check if data.data is undefined, null, or empty
-            if (data.data && Array.isArray(data.data) && data.data.length > 0) {
-                // Map each object to a string representation
-                const formattedData = data.data.map(row => {
-                    // Extract values from each object and join them
-                    return Object.values(row).join(', '); // Joins all values in the object with a comma
-                }).join('<br>'); // Joins all rows with a line break
-                // Update the HTML content of the specified element
-                document.getElementById(outputElementData).innerHTML = formattedData;
-            } else {
-                // If data.data is undefined, null, or empty, make the element blank
+            if (!data.data || !Array.isArray(data.data) || data.data.length === 0) {
                 document.getElementById(outputElementData).innerHTML = '';
+            } else {
+                const formattedData = data.data.map(row => {
+                    return Object.values(row).join(', ');
+                }).join('<br>');
+                document.getElementById(outputElementData).innerHTML = formattedData;
             }
         })
         .catch(error => {
             console.error('Error:', error);
-            document.getElementById(outputElementData).innerText = 'Error loading data';
+            // Change this line to make the output blank instead of showing 'Error loading data'
+            document.getElementById(outputElementData).innerHTML = '';
         });
 }
 
@@ -50,6 +51,10 @@ document.getElementById('button-delete-records-r').addEventListener('click', () 
 
 document.getElementById('button-insert-records-py').addEventListener('click', () => {
     handleButtonClick('http://127.0.0.1:5000/api-py', ['output-r', 'output-py']);
+});
+
+document.getElementById('button-delete-records-py').addEventListener('click', () => {
+    handleButtonClick('http://127.0.0.1:5000/delete-api-py', ['output-r', 'output-py'], 'DELETE');
 });
 
 // Display database table data from each API in real-time
