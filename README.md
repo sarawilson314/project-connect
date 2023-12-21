@@ -1,5 +1,7 @@
 # Project Connect
-Set up APIs in R, Python, and JavaScript that interact with a MS SQL Server database. Choose your fighter: may the best API win.
+Set up APIs in R, Python, and JavaScript that interact with a MS SQL Server database.
+
+Choose your fighter: may the best API win.
 
 ## Description
 This project demonstrates how to set up APIs in 3 different scripting languages. An API with 3 endpoints was created in each language (R using Plumber, Python using Flask, JavaScript using Express). These APIs interact with a SQL Server database via GET, POST and DELETE endpoints. GET endpoints display records from a database table, POST endpoints write new records to the database table, and DELETE endpoints delete the records from the database table. All APIs, the webpage front-end, and the database are hosted locally, with CORS enabled.
