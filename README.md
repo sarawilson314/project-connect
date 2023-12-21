@@ -16,11 +16,10 @@ The database connection string and API endpoints built with R Plumber.
 The script to enable CORS and run the API built with R Plumber.
 
 ### api.js
-The database connection string and API endpoints built with JavaScript Express.
+The database connection string, CORS enable and API endpoints built with JavaScript Express.
 
 ### api.py
-The database connection string and API endpoints built with Python Flask.
-<br>dropdown_ui()
+The database connection string, CORS enable and API endpoints built with Python Flask.
 
 ### index.html
 The webpage front-end with in-line CSS.
