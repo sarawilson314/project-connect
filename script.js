@@ -42,21 +42,30 @@ function displayData(apiEndpoint, outputElementData) {
 
 // Event listeners for button clicks
 document.getElementById('button-insert-records-r').addEventListener('click', () => {
-    handleButtonClick('http://localhost:8000/api-r', ['output-r', 'output-py']);
+    handleButtonClick('http://localhost:8000/api-r', ['output-r', 'output-py', 'output-js']);
 });
 
 document.getElementById('button-delete-records-r').addEventListener('click', () => {
-    handleButtonClick('http://localhost:8000/delete-r', ['output-r', 'output-py']);
+    handleButtonClick('http://localhost:8000/delete-r', ['output-r', 'output-py', 'output-js']);
 })
 
 document.getElementById('button-insert-records-py').addEventListener('click', () => {
-    handleButtonClick('http://127.0.0.1:5000/api-py', ['output-r', 'output-py']);
+    handleButtonClick('http://127.0.0.1:5000/api-py', ['output-r', 'output-py', 'output-js']);
 });
 
 document.getElementById('button-delete-records-py').addEventListener('click', () => {
-    handleButtonClick('http://127.0.0.1:5000/delete-api-py', ['output-r', 'output-py'], 'DELETE');
+    handleButtonClick('http://127.0.0.1:5000/delete-api-py', ['output-r', 'output-py', 'output-js'], 'DELETE');
+});
+
+document.getElementById('button-insert-records-js').addEventListener('click', () => {
+    handleButtonClick('http://localhost:3000/api-js', ['output-r', 'output-py', 'output-js']);
+});
+
+document.getElementById('button-delete-records-js').addEventListener('click', () => {
+    handleButtonClick('http://localhost:3000/delete-api-js', ['output-r', 'output-py', 'output-js'], 'DELETE');
 });
 
 // Display database table data from each API in real-time
 displayData('http://localhost:8000/api-r', 'output-r');
 displayData('http://127.0.0.1:5000/api-py', 'output-py');
+displayData('http://localhost:3000/api-js', 'output-js');

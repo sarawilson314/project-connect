@@ -13,14 +13,15 @@ con <- dbConnect(odbc::odbc(),
 #* @get /api-r
 function() {
   
-  # Query the table
-  data <- dbGetQuery(con, "SELECT * FROM API_Outputs")
-  data <- tail(data, n = min(5, nrow(data)))
+  # Query the table to get the top 5 most recent API_Outputs sorted by EntryDate
+  #query <- "SELECT API_Output FROM API_Outputs ORDER BY EntryDate DESC LIMIT 5"
+  query <- "SELECT TOP 5 [API_Output] FROM API_Outputs ORDER BY EntryDate DESC"
+  data <- dbGetQuery(con, query)
   
   # Create output for the API to return
-  (list(data = data))
-       
+  list(data = data)
 }
+
 
 # POST data to database table
 #* @post /api-r

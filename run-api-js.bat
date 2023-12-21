@@ -1,5 +1,5 @@
 @echo off
 
-Rscript "api.R"
+node api.js
 
 pause

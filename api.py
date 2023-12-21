@@ -37,8 +37,8 @@ def post_message():
 @app.route('/api-py', methods=['GET'])
 def get_last_five_records():
     try:
-        # Query the database table
-        query = 'SELECT TOP 5 * FROM API_Outputs'
+        # Query the database table, ordering by EntryDate in descending order
+        query = 'SELECT TOP 5 [API_Output] FROM API_Outputs ORDER BY EntryDate DESC'
         data = pd.read_sql(query, engine)
 
         response = {
@@ -48,6 +48,7 @@ def get_last_five_records():
     except Exception as e:
         print(e)
         return jsonify({"message": "An error occurred", "error": str(e)}), 500
+
 
 @app.route('/delete-api-py', methods=['DELETE'])
 def delete_records():
@@ -63,6 +64,8 @@ def delete_records():
     except Exception as e:
         print(e)
         return jsonify({"message": "An error occurred while deleting records", "error": str(e)}), 500
+    
+    
 
 
 
